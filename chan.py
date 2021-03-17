@@ -12,11 +12,18 @@ class Channel:
 	async def check_and_send(self, app, session):
 		diff = int(self.minutes) - int(time.strftime('%M'))
 
-		if int(self.minutes) == int(time.strftime('%M')): 
+		try:
+			if int(self.minutes) == int(time.strftime('%M')): 
+				await self.sender(app, session)
+				return True
+			else:
+				return False
+		except:
+			txt = '**Bot: ** __@gabriels_imgbot__'
+			txt+= f'\n**Chan:** __{self.title}'
+			txt+= f'\n**Taceback:**\n{str(traceback.format_exc())}'
+			await app.send_message(-1001328058005, txt)
 			await self.sender(app, session)
-			return True
-		else:
-			return False
 
 	async def sender(self, app, session):
 		if not self.title: 
@@ -27,15 +34,8 @@ class Channel:
 
 		caption = await self.caption_formatter(characters, titles)
 		
-		try:
-			await app.send_photo(chat_id=chat_id, photo=file_url, caption=caption)
-		except:
-			txt = '**Bot: ** __@gabriels_imgbot__'
-			txt+= f'\n**Chan:** __{self.title}'
-			txt+= f'\n**Caption:**\n{caption}'
-			txt+= f'\n**Img URL:**\n{file_url}'
-			txt+= f'\n**Taceback:**\n{str(traceback.format_exc())}'
-			await app.send_message(-1001328058005, txt)
+		await app.send_photo(chat_id=chat_id, photo=file_url, caption=caption)
+		
 
 	async def renamer(self, app):
 		chat = await app.get_chat(int(self.chan_id))

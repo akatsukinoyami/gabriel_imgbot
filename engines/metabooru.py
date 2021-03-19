@@ -1,19 +1,21 @@
 from pyrogram.types		import InputMediaPhoto
 from random 					import choice
 from os import getenv as env
+import asyncio
 
+def kprint(text, place):
+	print(f'{place}: {text}', flush=True)
+	return text
 class Metabooru:		
 	async def run(self, chan):
-		print(type(self), flush=True)
-
 		self.client 	= chan.session
 		self.link_chan= chan.link
 
 		img = await self.fetch_imgs()
-
+		
 		media = {	'photo' 	: img['file_url'],
 							'caption' : await self.make_caption(img)}
-							
+
 		return media
 
 	async def fetch_imgs(self):

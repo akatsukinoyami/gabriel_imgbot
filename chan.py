@@ -1,14 +1,16 @@
 from pyrogram.errors	import FloodWait, WebpageCurlFailed, MediaEmpty
 from engines.gelbooru	import Gelbooru
+from engines.rule34		import Rule34
 from engines.danbooru	import Danbooru
-from random 					import choice
-import time, traceback, asyncio
+import time, traceback, asyncio, random
 
 class Channel:
-	def __init__(self, chan_id, gelbooru, danbooru):
+	def __init__(self, chan_id, gelbooru, rule34, danbooru):
 		self.chan_id	= chan_id
+
 		self.gelbooru	= Gelbooru(gelbooru)
-		self.danbooru = Danbooru(danbooru if danbooru else gelbooru)
+		self.rule34		= Rule34(rule34 if rule34 else gelbooru)
+		self.danbooru	= Danbooru(danbooru if danbooru else gelbooru)
 		
 	async def check_and_send(self, app, session):
 		self.app		 = app
@@ -26,9 +28,10 @@ class Channel:
 		self.link = f'<a href=\"{chat.invite_link}\">{chat.title}</a>'
 
 	async def sender(self):
+		media = {}
 		try:
-			img_engine = choice((self.gelbooru, self.danbooru))
-			media = await img_engine.run(self)
+			img_engine	= await self.select_engine()
+			media 			= await img_engine.run(self)
 			return await self.app.send_photo(chat_id=int(self.chan_id), **media)
 
 		except (WebpageCurlFailed, MediaEmpty, FloodWait) as e:
@@ -36,19 +39,23 @@ class Channel:
 			return False
 
 		except:
-			return await self.app.send_message(-1001328058005, await self.format_error(media_group))
+			return await self.app.send_message(-1001328058005, await self.format_error(media))
 
-	async def format_error(self, media_group):
+	async def select_engine(self):
+		q = random.randint(1, 100)
+		print(q)
+		if q>90: 		return self.rule34
+		elif q>55: 	return self.danbooru
+		else:				return self.gelbooru
+
+	async def format_error(self, media):
 		
 		txt = '**Bot: ** __@gabriel_imgbot__'
 		txt+= f'\n**Chan:** __{self.link}__'
 
-		if media_group:
-			q = 0
-			for i in media_group:
-				q+=1
-				txt+= f'\n**Img URL ({q}):** <a href=\"{i[0]}\">Link</a>'
-				txt+= f'\n**Caption ({q}):** {i[1]}' 
+		if media:
+			txt+= f'\n**Img URL:** <a href=\"{media["photo"]}\">Link</a>'
+			txt+= f'\n**Caption:** {media["caption"]}' 
 
 		txt+= f'\n**Taceback:**\n__{str(traceback.format_exc())}__'
 		return txt

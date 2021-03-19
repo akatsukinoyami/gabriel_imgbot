@@ -15,11 +15,11 @@ async def main():
 			msg = await app.send_message(-1001328058005, '**Bot:** __@gabriel_imgbot__\n Started work.\n')
 			while True:
 				for chan in channels:
-					start_time = int(kprint(time.time()))
+					start_time = kprint(int(time.time()))
 
 					await chan.check_and_send(app, session)
 
-					end_time = int(kprint(time.time()))
+					end_time = kprint(int(time.time()))
 					wait_time = kprint(85 - (end_time - start_time))
 					await asyncio.sleep(wait_time)
 				

@@ -1,64 +1,133 @@
 from chan import Channel
-from funcs.odict import odict
 
-alldeny = "-photo_(medium)+-curvy+-asphyxiation+-male_focus+-animated+-pregnant+-trap+-futanari+-body-horror+-guro+-yaoi+-abs+-muscular+-vore+-gigantic_breasts+-pokemon+"
+channels = ( 
+Channel(-1001419557426,  # 🦊 KuroShiro Sekai
+	gelbooru = '{safe}greyscale+solo+1girl',
+	danbooru = '{male}greyscale'),		  																
+Channel(-1001292197663,  # 🦊 Tentacle Shop
+	gelbooru = 'tentacle',
+	danbooru = '{male}tentacle'),  		  																						
+Channel(-1001306394316,  # 🦊 BDSM Castle
+	gelbooru = 'bdsm+-tentacle',
+	danbooru = 'bdsm'),  		  																			
+Channel(-1001299479472,  # 🦊 Exhibitionists Park
+	gelbooru = '{{exhibitionism+~+public}}',
+	danbooru = ('{male}exhibitionism', '{male}public')),  		 														
+Channel(-1001464474211,  # 🦊 Sex Toys Department
+	gelbooru = '{{sex_toy+~+dildo+~+vibrator}}',
+	danbooru = ('{male}sex_toy', '{male}dildo', '{male}vibrator')),  		 												
+Channel(-1001268723500,  # 🦊 Anal World
+	gelbooru = '{{anal+~+vibrator_in_anus+~+anal_object_insertion}}',
+	danbooru = ('{male}anal', '{male}vibrator_in_anus', '{male}anal_object_insertion')),  		 	
+Channel(-1001341064178,  # 🦊 Yuri State
+	gelbooru = 'yuri',
+	danbooru = ''),  		  																								
+Channel(-1001303621559,  # 🦊 Maid Mansion
+	gelbooru = '{{maid+~+maid_apron+~+maid_headdress}}',
+	danbooru = ('maid', 'maid_apron', 'maid_headdress')),  		  										
 
-deny = odict()
-deny.char = f"{alldeny}-fellatio+-cum+-handjob+-sex+-clothed_sex+-penis+"
-deny.lewd = f"{alldeny}-rating%3Asafe+"
-deny.maid = alldeny
+Channel(-1001170899702,  # 🦊 Horo (Spice&Wolf)
+	gelbooru = '{safe}holo',
+	danbooru = ''),  		  																								
+Channel(-1001225481381,  # 🦊 C.C. (Code Geass)
+	gelbooru = '{safe}c.c.',
+	danbooru = ''),  		  																								
+Channel(-1001210561500,  # 🦊 Albedo (Overlord)
+	gelbooru = '{safe}albedo_(overlord)',
+	danbooru = ''),  		  																		
+Channel(-1001357421249,  # 🦊 Zero Kara Hajimeru Mahou no Sho
+	gelbooru = '{safe}zero_(zero_kara_hajimeru_mahou_no_sho)',
+	danbooru = ''),  		 								
+Channel(-1001305843261,  # 🦊 Yoko (Tengen Toppa Gurren Lagann)
+	gelbooru = '{safe}yoko_littner',
+	danbooru = ''),		  																				
+Channel(-1001264811314,  # 🦊 Mashiro (Sakura-sou no Pet na Kanojo)
+	gelbooru = '{safe}shiina_mashiro',
+	danbooru = '',),  		 																				
+Channel(-1001180690168,  # 🦊 @fkey123
+	gelbooru = '{safe}fkey',
+	danbooru = ''),  		 																									
+Channel(-1001375873369,  # 🦊 IA Colourful
+	gelbooru = '{safe}ia_(vocaloid)',
+	danbooru = ''),  		 																				
+Channel(-1001299485270,  # 🦊 Grea (Shingeki no Bahamut)
+	gelbooru = '{safe}{{grea_(shingeki_no_bahamut)+~+manaria_friends}}',
+	danbooru = ('{safe}grea_(shingeki_no_bahamut)', '{safe}manaria_friends')),  		 			
+Channel(-1001398979215,  # 🦊 Elaina (Majo no Tabitabi)
+	gelbooru = '{safe}elaina_(majo_no_tabitabi)',
+	danbooru = ''),  		  														
+Channel(-1001224959410,  # 🦊 Inori (Guilty Crown)
+	gelbooru = '{safe}yuzuriha_inori',
+	danbooru = ''),  		  																			
+Channel(-1001393185631,  # 🦊 Pramanix (Arknights)
+	gelbooru = '{safe}pramanix_(arknights)',
+	danbooru = ''),  		  																
+Channel(-1001450297428,  # 🦊 Tohru (Kobayashi-san Chi no Maidragon)
+	gelbooru = '{safe}tohru_(maidragon)',
+	danbooru = ''),  		  																		
+Channel(-1001397826978,  # 🦊 Gawr Gura
+	gelbooru = '{safe}{{gawr_gura+~+bloop_(gawr_gura)}}',
+	danbooru = ('{safe}gawr_gura', '{safe}bloop_(gawr_gura)')),  		 										
 
-channels = (
-	# 🦊 Themes
-	Channel(-1001419557426,  1, f'{deny.char}greyscale+solo+1girl'), 										# 🦊 KuroShiro Sekai
-	Channel(-1001292197663,  2, f'{deny.lewd}tentacle'), 																# 🦊 Tentacle Shop
-	Channel(-1001306394316,  3, f'{deny.lewd}bdsm+-tentacle'), 													# 🦊 BDSM Castle
-	Channel(-1001299479472,  4, f'{deny.lewd}{{exhibitionism+~+public}}'),							# 🦊 Exhibitionists Park
-	
-	Channel(-1001464474211,  7, f'{deny.lewd}{{sex_toy+~+dildo+~+vibrator}}'),					# 🦊 Sex Toys Department
-	Channel(-1001268723500,  8, f'{deny.lewd}{{anal+~+vibrator_in_anus+~+anal_object_insertion}}'),# 🦊 Anal World
-	Channel(-1001303621559,  9, f'{deny.maid}{{maid+~+maid_apron+~+maid_headdress}}'), 	# 🦊 Maid Mansion
-	Channel(-1001341064178, 10, f'{deny.lewd}yuri'), 																		# 🦊 Yuri State
-
-	# 🦊 Characters
-	Channel(-1001170899702, 11, f'{deny.char}holo'), 																		# 🦊 Horo (Spice&Wolf)
-	Channel(-1001225481381, 12, f'{deny.char}c.c.'), 																		# 🦊 C.C. (Code Geass)
-	Channel(-1001210561500, 13, f'{deny.char}albedo_(overlord)'), 											# 🦊 Albedo (Overlord)
-	Channel(-1001357421249, 14, f'{deny.char}zero_(zero_kara_hajimeru_mahou_no_sho)'),	# 🦊 Zero Kara Hajimeru Mahou no Sho
-	Channel(-1001305843261, 15, f'{deny.char}yoko_littner'), 														# 🦊 Yoko (Tengen Toppa Gurren Lagann)
-	Channel(-1001264811314, 16, f'{deny.char}shiina_mashiro'),													# 🦊 Mashiro (Sakura-sou no Pet na Kanojo)
-	Channel(-1001180690168, 17, f'{deny.char}fkey'),																		# 🦊 @fkey123
-	Channel(-1001375873369, 18, f'{deny.char}ia_(vocaloid)'),														# 🦊 IA Colourful
-	Channel(-1001299485270, 19, f'{deny.char}{{grea_(shingeki_no_bahamut)+~+manaria_friends}}'),# 🦊 Grea (Shingeki no Bahamut)
-	
-	Channel(-1001398979215, 22, f'{deny.char}elaina_(majo_no_tabitabi)'), 							# 🦊 Elaina (Majo no Tabitabi)
-	Channel(-1001224959410, 23, f'{deny.char}yuzuriha_inori'), 													# 🦊 Inori (Guilty Crown)
-	Channel(-1001393185631, 24, f'{deny.char}pramanix_(arknights)'), 										# 🦊 Pramanix (Arknights)
-	Channel(-1001450297428, 25, f'{deny.char}tohru_(maidragon)'), 											# 🦊 Tohru (Kobayashi-san Chi no Maidragon)
-	Channel(-1001397826978, 26, f'{deny.char}{{gawr_gura+~+bloop_(gawr_gura)}}'),				# 🦊 Gawr Gura
-	
-	# 🦊 Anime
-	Channel(-1001156479074, 33, f'{deny.char}{{tamaki_kotatsu+~+maki_oze+~+sister_cleaire}}'),# 🦊 Enen no Shouboutai
-	Channel(-1001498572697, 34, f'{deny.char}fate_(series)'),														# 🦊 Fate Series
-	Channel(-1001472087141, 35, f'{deny.char}one-punch_man+-raptora+-reptera'),					# 🦊 OnePunchMan
-	Channel(-1001214700364, 36, f'{deny.char}monogatari_(series)'), 										# 🦊 Monogatari Series
-	Channel(-1001431632000, 37, f'{deny.char}mushoku_tensei'), 													# 🦊 Реинкарнация безработного
-	Channel(-1001305962472, 38, f'{deny.char}tensei_shitara_slime_datta_ken '), 				# 🦊 TenSura
-	Channel(-1001212377345, 39, f'{deny.char}re%3Azero_kara_hajimeru_isekai_seikatsu '),# 🦊 Re:Zero
-	Channel(-1001271806523, 40, f'{deny.char}steins%3Bgate'),														# 🦊 Steins;Gate
-	Channel(-1001452419883, 41, f'{deny.char}go-toubun_no_hanayome'),										# 🦊 Go-toubun no Hanayome
-	Channel(-1001341423528, 42, f'{deny.char}{{utawarerumono+~+utawareru_mono}}'),			# 🦊 Utawarerumono
-	
-	Channel(-1001150028201, 46, f'{deny.char}to_love-ru'),															# 🦊 To Love-Ru
-	Channel(-1001275364036, 47, f'{deny.char}kono_subarashii_sekai_ni_shukufuku_wo%21'),# 🦊 KonoSuba
-	Channel(-1001445769194, 48, f'{deny.char}no_game_no_life'), 												# 🦊 No Game, No Life
-	Channel(-1001419152052, 49, f'{deny.char}sewayaki_kitsune_no_senko-san'), 					# 🦊 The Helpful Fox Senko-san
-	# 🦊 Game
-	Channel(-1001331456006, 51, f'{deny.char}arknights'), 															# 🦊 Arknights
-	Channel(-1001194471974, 52, f'{deny.char}kantai_collection'), 											# 🦊 Kantai Collection
-	Channel(-1001444542633, 53, f'{deny.char}genshin_impact'), 													# 🦊 Genshin Impact
-
-	Channel(-1001347599255, 57, f'{deny.char}azur_lane'), 															# 🦊 Azur Lane
-	Channel(-1001392234983, 58, f'{deny.char}touhou'), 																	# 🦊 Touhou	
-	Channel(-1001282864009, 59, f'{deny.char}{{hololive ~ hololive_english}}'), 				# 🦊 Hololive	
+Channel(-1001156479074,  # 🦊 Enen no Shouboutai
+	gelbooru = '{safe}{{tamaki_kotatsu+~+maki_oze+~+sister_cleaire}}',
+	danbooru = ('{safe}tamaki_kotatsu', '{safe}maki_oze', '{safe}sister_cleaire')),  		 				
+Channel(-1001498572697,  # 🦊 Fate Series
+	gelbooru = '{safe}fate_(series)',
+	danbooru = ''),  		 																				
+Channel(-1001472087141,  # 🦊 OnePunchMan
+	gelbooru = '{safe}one-punch_man+-raptora+-reptera',
+	danbooru = '{safe}{male}one-punch_man'),  		 											
+Channel(-1001214700364,  # 🦊 Monogatari Series
+	gelbooru = '{safe}monogatari_(series)',
+	danbooru = ''),  		  																	
+Channel(-1001431632000,  # 🦊 Mushoku Tensei
+	gelbooru = '{safe}mushoku_tensei',
+	danbooru = ''),  		  																			
+Channel(-1001305962472,  # 🦊 TenSura
+	gelbooru = '{safe}tensei_shitara_slime_datta_ken ',
+	danbooru = ''),  		  											
+Channel(-1001212377345,  # 🦊 Re:Zero
+	gelbooru = '{safe}re%3Azero_kara_hajimeru_isekai_seikatsu ',
+	danbooru = ''),  		 							
+Channel(-1001271806523,  # 🦊 Steins;Gate
+	gelbooru = '{safe}steins%3Bgate',
+	danbooru = ''),  		 																				
+Channel(-1001452419883,  # 🦊 Go-toubun no Hanayome
+	gelbooru = '{safe}go-toubun_no_hanayome',
+	danbooru = ''),  		 																
+Channel(-1001341423528,  # 🦊 Utawarerumono
+	gelbooru = '{safe}{{utawarerumono+~+utawareru_mono}}',
+	danbooru = '{safe}utawarerumono'),  		 										
+Channel(-1001150028201,  # 🦊 To Love-Ru
+	gelbooru = '{safe}to_love-ru',
+	danbooru = ''),  		 																						
+Channel(-1001275364036,  # 🦊 KonoSuba
+	gelbooru = '{safe}kono_subarashii_sekai_ni_shukufuku_wo%21',
+	danbooru = ''),  		 							
+Channel(-1001445769194,  # 🦊 No Game, No Life
+	gelbooru = '{safe}no_game_no_life',
+	danbooru = ''),  		  																			
+Channel(-1001419152052,  # 🦊 The Helpful Fox Senko-san
+	gelbooru = '{safe}sewayaki_kitsune_no_senko-san',
+	danbooru = ''),  		  												
+					
+Channel(-1001331456006,  # 🦊 Arknights
+	gelbooru = '{safe}arknights',
+	danbooru = ''),  		  																						
+Channel(-1001194471974,  # 🦊 Kantai Collection
+	gelbooru = '{safe}kantai_collection',
+	danbooru = ''),  		  																		
+Channel(-1001444542633,  # 🦊 Genshin Impact		
+	gelbooru = '{safe}genshin_impact',
+	danbooru = ''),  		  																					
+Channel(-1001347599255,  # 🦊 Azur Lane
+	gelbooru = '{safe}azur_lane',
+	danbooru = ''),  		  																						
+Channel(-1001392234983,  # 🦊 Touhou	
+	gelbooru = '{safe}touhou',
+	danbooru = ''),  		  																							
+Channel(-1001282864009,  # 🦊 Hololive	
+	gelbooru = '{safe}{{hololive ~ hololive_english}}',
+	danbooru = ('{safe}hololive', '{safe}hololive_englishs')),  		  											
 )

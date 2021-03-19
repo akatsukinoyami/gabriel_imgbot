@@ -1,51 +1,60 @@
-from pyrogram.errors import FloodWait, WebpageCurlFailed, MediaEmpty
-from funcs.gelbooru import Gelbooru
+from pyrogram.errors	import FloodWait, WebpageCurlFailed, MediaEmpty
+from engines.gelbooru	import Gelbooru
+from engines.danbooru	import Danbooru
+from random 					import choice
 import time, traceback, asyncio
 
 class Channel:
-	def __init__(self, chan_id, minutes, tags):
+	def __init__(self, chan_id, gelbooru, danbooru):
 		self.chan_id	= chan_id
-		self.minutes	= minutes
-		self.tags 		= tags
-		self.title		= ''
-		self.link			= ''
-
-	async def renamer(self, app):
-		chat = await app.get_chat(int(self.chan_id))
-		self.title= chat.title
-		self.link = f'<a href=\"{chat.invite_link}\">{chat.title}</a>'
+		self.gelbooru	= Gelbooru(gelbooru)
+		self.danbooru = Danbooru(danbooru if danbooru else gelbooru)
 		
 	async def check_and_send(self, app, session):
-		sended = False
-		if int(self.minutes) == int(time.strftime('%M')): 
-			if not self.title: 
-				await self.renamer(app)
-			while not sended:
-				sended = await self.sender(app, session)
-		return sended
+		self.app		 = app
+		self.session = session
+		await self.namer()
 
-	async def sender(self, app, session):
+		sended = 0
+		while not sended:
+			sended = await self.sender()
+
+	async def namer(self):
+		chat = await self.app.get_chat(int(self.chan_id))
+
+		self.title= chat.title
+		self.link = f'<a href=\"{chat.invite_link}\">{chat.title}</a>'
+
+	async def sender(self):
 		try:
-			url, caption = None, None
-			url, caption = await Gelbooru().gelbooru(session, self.tags, self.link)
-			return await app.send_photo(chat_id=int(self.chan_id), photo=url, caption=caption)
+			img_engine = choice((self.gelbooru, self.danbooru))
+			media = await img_engine.run(self)
+			return await self.app.send_photo(chat_id=int(self.chan_id), **media)
+
 		except (WebpageCurlFailed, MediaEmpty, FloodWait) as e:
 			if e.x is not None: await asyncio.sleep(e.x)
 			return False
-		except:
-			return await app.send_message(-1001328058005, await self.format_error(url, caption))
 
-	async def format_error(self, url, caption):
+		except:
+			return await self.app.send_message(-1001328058005, await self.format_error(media_group))
+
+	async def format_error(self, media_group):
+		
 		txt = '**Bot: ** __@gabriel_imgbot__'
 		txt+= f'\n**Chan:** __{self.link}__'
-		txt+= f'\n**Img URL:** <a href=\"{url}\">Link</a>' if url is not None else ''
-		txt+= f'\n**Caption:** {caption}' if caption is not None else ''
+
+		if media_group:
+			q = 0
+			for i in media_group:
+				q+=1
+				txt+= f'\n**Img URL ({q}):** <a href=\"{i[0]}\">Link</a>'
+				txt+= f'\n**Caption ({q}):** {i[1]}' 
+
 		txt+= f'\n**Taceback:**\n__{str(traceback.format_exc())}__'
 		return txt
 	
 	async def make(self, app, msg):
-		if not self.title: 
-			await self.renamer(app)
+		await self.renamer(app)
 
 		await asyncio.sleep(5)
 		return await msg.edit_text(f"{msg.text.html}\n{self.link}")

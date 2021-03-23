@@ -6,7 +6,7 @@ class Gelbooru(Metabooru):
 	link_gb= f'https://gelbooru.com/index.php?page=dapi&q=index&json=1&api_key={env("GB_API_ID")}&user_id={env("GB_USER_ID")}'
 
 	def __init__(self, tags):
-		deny_tags = "-photo_(medium)+-curvy+-asphyxiation+-male_focus+-animated+-pregnant+-trap+-futanari+-body-horror+-guro+-yaoi+-abs+-muscular+-vore+-gigantic_breasts+-pokemon"
+		deny_tags = "-photo_(medium)+-curvy+-asphyxiation+-male_focus+-animated+-pregnant+-trap+-futanari+-body-horror+-guro+-yaoi+-abs+-muscular+-vore+-gigantic_breasts+-pokemon+"
 
 		tags = tags.format(**self.exclude_tags)
 		self.link_search = f"{self.link_gb}&s=post&limit=9&tags={deny_tags}{tags}+sort%3arandom"

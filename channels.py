@@ -1,4 +1,4 @@
-from chan import Channel
+from classes.chan import Channel
 
 channels = ( 
 Channel(-1001419557426,  # 🦊 KuroShiro Sekai

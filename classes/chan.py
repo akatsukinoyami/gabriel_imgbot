@@ -1,8 +1,8 @@
-from pyrogram.errors	import FloodWait, WebpageCurlFailed, MediaEmpty
+from pyrogram.errors	import FloodWait, WebpageCurlFailed, MediaEmpty, MediaCaptionTooLong as errors
 from engines.gelbooru	import Gelbooru
 from engines.rule34		import Rule34
 from engines.danbooru	import Danbooru
-import time, traceback, asyncio, random
+import time, traceback, asyncio, random, time
 
 class Channel:
 	def __init__(self, chan_id, gelbooru, rule34, danbooru):
@@ -13,6 +13,8 @@ class Channel:
 		self.danbooru	= Danbooru(danbooru if danbooru else gelbooru)
 		
 	async def check_and_send(self, app, session):
+		start_time = time.time()
+					
 		self.app		 = app
 		self.session = session
 		await self.namer()
@@ -20,6 +22,9 @@ class Channel:
 		sended = 0
 		while not sended:
 			sended = await self.sender()
+
+		end_time = time.time()
+		return 85 - (int(end_time) - int(start_time))
 
 	async def namer(self):
 		chat = await self.app.get_chat(int(self.chan_id))
@@ -34,7 +39,7 @@ class Channel:
 			media 			= await img_engine.run(self)
 			return await self.app.send_photo(chat_id=int(self.chan_id), **media)
 
-		except (WebpageCurlFailed, MediaEmpty, FloodWait) as e:
+		except errors as e:
 			if e.x is not None: await asyncio.sleep(e.x)
 			return False
 

@@ -1,7 +1,8 @@
-from os 				import getenv as env
-from pyrogram		import Client
-from channels 	import channels
-import asyncio, aiohttp, time
+from os 					import getenv as env
+from pyrogram			import Client
+from channels 		import channels
+from classes.lib	import Lib
+import asyncio, aiohttp
 
 app = Client('gabriel_imgbot', env('API_ID'), env('API_HASH'), bot_token=env('TG_TOKEN'))
 
@@ -12,15 +13,10 @@ def kprint(text):
 async def main():
 	async with app:
 		async with aiohttp.ClientSession() as session:
-			msg = await app.send_message(-1001328058005, '**Bot:** __@gabriel_imgbot__\n Started work.\n')
+			Lib(app).turn_on()
 			while True:
 				for chan in channels:
-					start_time = kprint(int(time.time()))
-
-					await chan.check_and_send(app, session)
-
-					end_time = kprint(int(time.time()))
-					wait_time = kprint(85 - (end_time - start_time))
+					wait_time = await chan.check_and_send(app, session)
 					await asyncio.sleep(wait_time)
 				
 
